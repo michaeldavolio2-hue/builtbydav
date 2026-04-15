@@ -1,0 +1,2032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enquire | Built By Dav</title>
+
+<!-- FONTS -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- ICONS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+/* ===== GLOBAL ===== */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.3px;
+  background: #E8E0D0;
+  color: black;
+  line-height: 1.7;
+}
+
+section {
+  padding: 100px 6%;
+}
+
+/* ===== NAV ===== */
+nav {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  backdrop-filter: blur(30px);
+  background: rgba(5, 5, 5, 0.85);
+  border-bottom: 1px solid rgba(232, 224, 208, 0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 6%;
+  box-sizing: border-box;
+  z-index: 1000;
+}
+
+.logo img {
+  height: 75px;
+  transition: 0.3s;
+}
+
+.logo:hover img {
+  transform: scale(1.05);
+}
+
+.nav-links {
+  display: none;
+  gap: 35px;
+  margin-right: 20px;
+}
+
+.nav-links.active {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 90px;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.98);
+  padding: 20px 6%;
+  z-index: 999;
+  box-sizing: border-box;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 1px;
+  transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 400;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -5px;
+  left: 0;
+  background: #E8E0D0;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* ===== HAMBURGER ===== */
+.hamburger {
+  margin-left: auto;
+  padding: 10px;
+  display: flex !important;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 8px;
+  z-index: 1001;
+  flex-shrink: 0;
+}
+
+.hamburger span {
+  width: 35px;
+  height: 3px;
+  background: white;
+  border-radius: 2px;
+  transition: 0.3s;
+  display: block;
+  flex-shrink: 0;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(8px, 8px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(8px, -8px);
+}
+
+/* ===== HEADINGS ===== */
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 1px;
+}
+
+/* ===== HEADER SECTION ===== */
+.header-section {
+  padding-top: 140px;
+  padding-bottom: 60px;
+  text-align: center;
+}
+
+.header-section h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.header-section p {
+  font-size: 18px;
+  color: #555;
+  max-width: 600px;
+  margin: auto;
+}
+
+/* ===== FORM SECTION ===== */
+.form-section {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-container {
+  background: white;
+  padding: 50px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-container input,
+.form-container select,
+.form-container textarea {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: 0.3s;
+}
+
+.form-container input:focus,
+.form-container select:focus,
+.form-container textarea:focus {
+  outline: none;
+  border-color: black;
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+}
+
+.form-container select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 20px;
+  padding-right: 40px;
+}
+
+.form-container textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-container button {
+  width: 100%;
+  padding: 14px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 400;
+  margin-top: 10px;
+  align-self: flex-end;
+}
+
+.form-container button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background: #111;
+  padding: 30px;
+  text-align: center;
+  color: #888;
+  margin-top: 60px;
+}
+
+/* ===== MOBILE ===== */
+@media(max-width: 900px) {
+  section {
+    padding: 60px 6%;
+  }
+
+  .header-section {
+    padding-top: 120px;
+  }
+
+  .header-section h1 {
+    font-size: 32px;
+  }
+
+  .form-container {
+    padding: 30px;
+  }
+}
+
+
+
+
+/* ================================================================
+   ELITE NEW-AGE TYPOGRAPHY, Built By Dav
+   Cormorant Garamond (editorial serif) × Space Grotesk (modern sans)
+   ================================================================ */
+
+*, *::before, *::after {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+}
+
+body {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 400 !important;
+  font-size: 15px !important;
+  line-height: 1.85 !important;
+  letter-spacing: 0.015em !important;
+}
+
+h1 {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  line-height: 1.0 !important;
+  text-transform: uppercase !important;
+}
+
+h2 {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-weight: 700 !important;
+  font-size: clamp(28px, 4vw, 42px) !important;
+  letter-spacing: 0.14em !important;
+  line-height: 1.05 !important;
+  text-transform: uppercase !important;
+}
+
+h3 {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  letter-spacing: 0.22em !important;
+  line-height: 1.5 !important;
+  text-transform: uppercase !important;
+}
+
+p {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 400 !important;
+  font-size: 15px !important;
+  line-height: 1.9 !important;
+  letter-spacing: 0.015em !important;
+}
+
+li {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 400 !important;
+  font-size: 15px !important;
+  line-height: 1.9 !important;
+  letter-spacing: 0.01em !important;
+}
+
+.nav-links a {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-size: 9px !important;
+  letter-spacing: 0.26em !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+}
+
+.btn, .card-btn, .form-container button, button[type="submit"] {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-size: 9px !important;
+  letter-spacing: 0.28em !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+}
+
+.hero-text h1 {
+  font-size: clamp(52px, 9vw, 96px) !important;
+  letter-spacing: 0.14em !important;
+  line-height: 0.98 !important;
+  font-style: normal !important;
+}
+
+.hero-text p {
+  font-size: 16px !important;
+  line-height: 1.95 !important;
+  letter-spacing: 0.04em !important;
+  font-weight: 400 !important;
+}
+
+.article-header h1 {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: clamp(36px, 6vw, 68px) !important;
+  font-style: italic !important;
+  letter-spacing: 0.04em !important;
+  text-transform: none !important;
+  line-height: 1.1 !important;
+  font-weight: 700 !important;
+}
+
+.article-meta {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-size: 9px !important;
+  letter-spacing: 0.28em !important;
+  text-transform: uppercase !important;
+  font-weight: 500 !important;
+}
+
+.article-content p {
+  font-size: 17px !important;
+  line-height: 2.05 !important;
+  letter-spacing: 0.01em !important;
+  font-weight: 400 !important;
+}
+
+.article-content h2 {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-style: italic !important;
+  font-size: 30px !important;
+  letter-spacing: 0.05em !important;
+  text-transform: none !important;
+  font-weight: 700 !important;
+}
+
+.header-section h1, .page-header h1 {
+  font-size: clamp(32px, 5vw, 56px) !important;
+  letter-spacing: 0.1em !important;
+  line-height: 1.05 !important;
+}
+
+.header-section p, .page-header p {
+  font-size: 15px !important;
+  line-height: 1.9 !important;
+  letter-spacing: 0.03em !important;
+  font-weight: 400 !important;
+}
+
+.card h3 {
+  font-size: 11px !important;
+  letter-spacing: 0.24em !important;
+}
+
+.card p {
+  font-size: 14px !important;
+  line-height: 1.85 !important;
+  letter-spacing: 0.01em !important;
+}
+
+.resource-item h3 {
+  font-size: 11px !important;
+  letter-spacing: 0.22em !important;
+}
+
+.resource-item p {
+  font-size: 14px !important;
+  line-height: 1.85 !important;
+}
+
+.resource-item a {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-size: 9px !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+}
+
+.footer, .footer p, .footer-bottom p {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-size: 10px !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+}
+
+.footer-tagline {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-size: 10px !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  font-weight: 300 !important;
+}
+
+.footer-links a {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-size: 9px !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  font-weight: 500 !important;
+}
+
+.article-footer, .article-footer p {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-size: 10px !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+}
+
+input, textarea, select {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.benefits li, .benefits p {
+  font-size: 15px !important;
+  line-height: 1.9 !important;
+}
+
+.content p, .service-section p, .service-section li {
+  font-size: 15px !important;
+  line-height: 1.9 !important;
+}
+
+.content h2, .service-section h2 {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+}
+
+@media (max-width: 768px) {
+  .hero-text h1 {
+    font-size: clamp(38px, 12vw, 56px) !important;
+    letter-spacing: 0.1em !important;
+  }
+  h2 {
+    font-size: clamp(22px, 7vw, 30px) !important;
+    letter-spacing: 0.1em !important;
+  }
+  .header-section h1, .page-header h1 {
+    font-size: clamp(28px, 8vw, 40px) !important;
+    letter-spacing: 0.08em !important;
+  }
+  .article-header h1 {
+    font-size: clamp(28px, 9vw, 42px) !important;
+  }
+  p, li {
+    font-size: 14px !important;
+  }
+  .article-content p {
+    font-size: 15px !important;
+  }
+  h3 {
+    font-size: 11px !important;
+  }
+}
+
+
+/* ===== READABILITY UPGRADE ===== */
+body {
+  font-size: 16px !important;
+  line-height: 2.0 !important;
+}
+
+p {
+  font-size: 16px !important;
+  line-height: 2.0 !important;
+}
+
+li {
+  font-size: 16px !important;
+  line-height: 2.0 !important;
+}
+
+.hero-text p {
+  font-size: 17px !important;
+  line-height: 2.0 !important;
+  color: #ccc !important;
+}
+
+.mission-text p {
+  font-size: 16px !important;
+  line-height: 2.05 !important;
+  color: #2a2a2a !important;
+}
+
+.story-text p {
+  font-size: 16px !important;
+  line-height: 2.05 !important;
+  color: #bbb !important;
+}
+
+.card p {
+  font-size: 15px !important;
+  line-height: 1.95 !important;
+  color: #444 !important;
+}
+
+.resource-item p {
+  font-size: 15px !important;
+  line-height: 1.95 !important;
+}
+
+.header-section p, .page-header p {
+  font-size: 17px !important;
+  line-height: 2.0 !important;
+}
+
+.article-content p {
+  font-size: 18px !important;
+  line-height: 2.1 !important;
+}
+
+.content p, .service-section p {
+  font-size: 16px !important;
+  line-height: 2.05 !important;
+}
+
+.benefits li, .content li, .service-section li {
+  font-size: 16px !important;
+  line-height: 2.0 !important;
+}
+
+h2 {
+  font-size: clamp(30px, 4vw, 44px) !important;
+}
+
+h3 {
+  font-size: 13px !important;
+}
+
+.card h3 {
+  font-size: 12px !important;
+}
+
+.resource-item h3 {
+  font-size: 12px !important;
+}
+
+@media (max-width: 768px) {
+  p, li {
+    font-size: 15px !important;
+  }
+  .article-content p {
+    font-size: 16px !important;
+  }
+  .hero-text p {
+    font-size: 15px !important;
+  }
+}
+
+
+/* ===== ELEGANT FONT REFINEMENT ===== */
+/* Cormorant Garamond for all body text, flowing, warm, editorial */
+/* Space Grotesk kept only for UI micro-labels (nav, buttons, captions) */
+
+body {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-weight: 400 !important;
+  font-size: 18px !important;
+  line-height: 2.0 !important;
+  letter-spacing: 0.02em !important;
+}
+
+p {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-weight: 400 !important;
+  font-size: 18px !important;
+  line-height: 2.05 !important;
+  letter-spacing: 0.02em !important;
+}
+
+li {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-weight: 400 !important;
+  font-size: 18px !important;
+  line-height: 2.0 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.hero-text p {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: 19px !important;
+  font-weight: 400 !important;
+  line-height: 2.0 !important;
+  color: #ccc !important;
+}
+
+.mission-text p {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: 18px !important;
+  line-height: 2.05 !important;
+  color: #2a2a2a !important;
+}
+
+.story-text p {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: 18px !important;
+  line-height: 2.05 !important;
+  color: #bbb !important;
+}
+
+.card p {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: 17px !important;
+  line-height: 2.0 !important;
+}
+
+.resource-item p {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: 17px !important;
+  line-height: 2.0 !important;
+}
+
+.header-section p, .page-header p {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: 19px !important;
+  line-height: 2.0 !important;
+}
+
+.article-content p {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: 20px !important;
+  line-height: 2.1 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.content p, .service-section p {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: 18px !important;
+  line-height: 2.05 !important;
+}
+
+.benefits li, .content li, .service-section li {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: 18px !important;
+  line-height: 2.0 !important;
+}
+
+input, textarea, select {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: 16px !important;
+  letter-spacing: 0.03em !important;
+}
+
+@media (max-width: 768px) {
+  p, li {
+    font-size: 17px !important;
+  }
+  .article-content p {
+    font-size: 18px !important;
+  }
+  .hero-text p {
+    font-size: 17px !important;
+  }
+}
+
+
+/* ===== BANGLA MN FONT ===== */
+body, p, li, input, textarea, select,
+.hero-text p, .mission-text p, .story-text p,
+.card p, .resource-item p, .header-section p,
+.page-header p, .article-content p,
+.content p, .service-section p,
+.benefits li, .content li, .service-section li {
+  font-family: 'Bangla MN', serif !important;
+}
+
+
+/* ===== INTER BODY FONT ===== */
+body, p, li, input, textarea, select,
+.hero-text p, .mission-text p, .story-text p,
+.card p, .resource-item p, .header-section p,
+.page-header p, .article-content p,
+.content p, .service-section p,
+.benefits li, .content li, .service-section li {
+  font-family: 'Inter', sans-serif !important;
+}
+
+
+/* ===== INTER FOR ALL SUBTITLES & BODY ===== */
+h2, h3, h4 {
+  font-family: 'Inter', sans-serif !important;
+}
+
+.mission-text h2, .story-text h2, .services h2,
+.resources h2, .contact h2, .header-section h2,
+.page-header h2, .content h2, .service-section h2,
+.article-content h2 {
+  font-family: 'Inter', sans-serif !important;
+}
+
+
+/* ===== REVERT H2/H3 TO CORMORANT GARAMOND ===== */
+h2, h3, h4,
+.mission-text h2, .story-text h2, .services h2,
+.resources h2, .contact h2, .header-section h2,
+.page-header h2, .content h2, .service-section h2,
+.article-content h2 {
+  font-family: 'Cormorant Garamond', serif !important;
+}
+
+
+/* ===== SPACE GROTESK UNIVERSAL ===== */
+*, *::before, *::after {
+  font-family: 'Space Grotesk', sans-serif !important;
+}
+
+
+/* ===== RESOURCE CARD TITLES, MORE READABLE ===== */
+.resource-item h3 {
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  line-height: 1.4 !important;
+  margin-bottom: 14px !important;
+}
+
+
+/* ===== ALL BOX TITLES, MORE READABLE ===== */
+.card h3,
+.resource-item h3,
+.service-section h3,
+.content h3,
+h3 {
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  line-height: 1.4 !important;
+}
+
+
+/* ===== BOX TITLES, CORMORANT GARAMOND BOLD ===== */
+h3,
+.card h3,
+.resource-item h3,
+.service-section h3,
+.content h3 {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+  line-height: 1.3 !important;
+  text-transform: uppercase !important;
+}
+
+
+/* ===== FONT AWESOME FIX ===== */
+.fa, .fas, .far, .fal, .fab, .fa-brands,
+.fa-solid, .fa-regular, [class^="fa-"], [class*=" fa-"],
+i.fa, i.fas, i.far, i.fab {
+  font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Brands', 'FontAwesome' !important;
+}
+
+
+/* ===== FONT AWESOME RESTORE ===== */
+.fab, .fab::before,
+.fas, .fas::before,
+.far, .far::before,
+.fa, .fa::before,
+[class^="fa-"]::before,
+[class*=" fa-"]::before {
+  font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Brands', 'FontAwesome' !important;
+  font-weight: 900 !important;
+}
+
+.fab, .fab::before {
+  font-family: 'Font Awesome 6 Brands' !important;
+  font-weight: 400 !important;
+}
+
+
+/* ===== FONT AWESOME NUCLEAR FIX ===== */
+i.fab, i[class*="fa-"] {
+  font-family: 'Font Awesome 6 Brands' !important;
+  font-weight: 400 !important;
+}
+i.fas, i.fa {
+  font-family: 'Font Awesome 6 Free' !important;
+  font-weight: 900 !important;
+}
+i.fab::before, i.fas::before, i.fa::before, i[class*="fa-"]::before {
+  font-family: inherit !important;
+  font-weight: inherit !important;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <a href="index.html"><img src="newlog.png" alt="Built By Dav"></a>
+  </div>
+
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <div class="nav-links" id="nav-links">
+    <a href="index.html#hero">Home</a>
+    <a href="index.html#mission">About</a>
+    <a href="index.html#story">My Story</a>
+    <a href="index.html#services">Work With Me</a>
+    <a href="index.html#resources">Resources</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<section class="header-section">
+  <h1>Get In Touch</h1>
+  <p>Tell me more about what you're looking for and I'll be in touch shortly.</p>
+</section>
+
+<!-- FORM SECTION -->
+<section class="form-section">
+  <div class="form-container">
+    <form id="enquiry-form" onsubmit="return handleEnquirySubmit(event)" action="https://formsubmit.co/builtbydav1@gmail.com" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <input type="tel" name="phone" placeholder="Your Phone Number" required>
+      
+      <select name="service" required>
+        <option value="">Select a Service</option>
+        <option value="1:1 Identity Rebuild Coaching">1:1 Identity Rebuild Coaching</option>
+        <option value="Discipline Coaching">Discipline Coaching</option>
+        <option value="Speaking & School Sessions">Speaking & School Sessions</option>
+        <option value="Workshops">Workshops</option>
+        <option value="Other">Other</option>
+      </select>
+      
+      <textarea name="message" placeholder="Tell me more about your enquiry..."></textarea>
+      <input type="hidden" name="_subject" value="New Enquiry">
+      
+      <button type="submit">Send Enquiry</button>
+    </form>
+    <div id="thankyou-section" class="thank-you-section" style="display:none; padding:2rem; background:#f7f7f7; border:1px solid #ddd; border-radius:1rem; text-align:center; margin-top:1.5rem;">
+      <h2>Thank you!</h2>
+      <p>Your enquiry has been sent. Michael will be in touch soon.</p>
+      <button type="button" id="thankyou-close" style="margin-top:1rem; padding:0.8rem 1.5rem; border:none; background:#000; color:#fff; border-radius:999px; cursor:pointer;">Close</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>© 2026 Built By Dav. All rights reserved.</p>
+  <p>ABN 30 541 913 207</p>
+  <p>builtbydav1@gmail.com</p>
+</footer>
+
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('nav-links');
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+  }
+
+  function handleEnquirySubmit(event) {
+    if (!event || !event.target) return true;
+    event.preventDefault();
+    const enquiryForm = event.target;
+    const thankyouSection = document.getElementById('thankyou-section');
+    const submitButton = enquiryForm.querySelector('button[type="submit"]');
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = 'Sending...';
+    }
+
+    const formData = new FormData(enquiryForm);
+    fetch(enquiryForm.action, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+      .then(response => {
+        if (!response.ok) throw new Error('Submission failed');
+        enquiryForm.style.display = 'none';
+        if (thankyouSection) thankyouSection.style.display = 'block';
+      })
+      .catch(() => {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = 'Send Enquiry';
+        }
+        alert('Sorry, something went wrong. Please try again or email builtbydav1@gmail.com directly.');
+      });
+
+    return false;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const enquiryForm = document.getElementById('enquiry-form');
+    if (enquiryForm && !enquiryForm.getAttribute('onsubmit')) {
+      enquiryForm.setAttribute('onsubmit', 'return handleEnquirySubmit(event)');
+    }
+    const thankyouClose = document.getElementById('thankyou-close');
+    if (thankyouClose) {
+      thankyouClose.addEventListener('click', () => {
+        const enquiryForm = document.getElementById('enquiry-form');
+        const thankyouSection = document.getElementById('thankyou-section');
+        if (thankyouSection) thankyouSection.style.display = 'none';
+        if (enquiryForm) {
+          enquiryForm.style.display = 'block';
+          enquiryForm.reset();
+          const submitButton = enquiryForm.querySelector('button[type="submit"]');
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = 'Send Enquiry';
+          }
+        }
+      });
+    }
+  });
+</script>
+
+<div id="chat-prompt" onclick="openChatFromPrompt()">
+  Any quick questions? <strong>Speak to Nova!</strong>
+  <span id="chat-prompt-close" onclick="event.stopPropagation(); this.parentElement.style.display='none'">✕</span>
+</div>
+
+<!-- ===== FAQ CHATBOT ===== -->
+<div id="chat-bubble" onclick="toggleChat()" title="Ask a question">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+</div>
+
+<div id="chat-window">
+  <div id="chat-header">
+    <div id="chat-header-info">
+      <div id="chat-avatar">Y</div>
+      <div>
+        <div id="chat-name">Nova</div>
+        <div id="chat-status">Michael's assistant, here to help</div>
+      </div>
+    </div>
+    <button onclick="toggleChat()" id="chat-close">✕</button>
+  </div>
+
+  <div id="chat-messages">
+    <div class="chat-msg bot">Hey, I'm Nova, Michael's assistant. Got a quick question about Built By Dav? I'm here to help.</div>
+    <div id="chat-suggestions">
+      <div class="suggestion" onclick="askQuestion('How do I book a session?')">How do I book?</div>
+      <div class="suggestion" onclick="askQuestion('How much does it cost?')">Pricing</div>
+      <div class="suggestion" onclick="askQuestion('What age groups do you work with?')">Age groups</div>
+      <div class="suggestion" onclick="askQuestion('What topics do you cover?')">Topics covered</div>
+    </div>
+  </div>
+
+  <div id="chat-input-row">
+    <input id="chat-input" type="text" placeholder="Type your question..." onkeydown="if(event.key==='Enter') sendMessage()">
+    <button onclick="sendMessage()" id="chat-send">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<style>
+#chat-bubble {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 58px;
+  height: 58px;
+  background: #111;
+  border: 1px solid rgba(232,224,208,0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 9999;
+  color: #E8E0D0;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  transition: 0.3s;
+}
+#chat-bubble:hover {
+  transform: scale(1.08);
+  background: #1a1a1a;
+  box-shadow: 0 12px 40px rgba(232,224,208,0.15);
+}
+#chat-window {
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  width: 340px;
+  max-height: 520px;
+  background: #0d0d0d;
+  border: 1px solid rgba(232,224,208,0.15);
+  border-radius: 16px;
+  z-index: 9998;
+  display: none;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  overflow: hidden;
+  font-family: 'Space Grotesk', sans-serif !important;
+}
+#chat-window.open { display: flex; }
+#chat-header {
+  background: #111;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(232,224,208,0.1);
+}
+#chat-header-info { display: flex; align-items: center; gap: 12px; }
+#chat-avatar {
+  width: 36px; height: 36px;
+  background: #E8E0D0;
+  color: black;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 14px;
+  font-family: 'Space Grotesk', sans-serif !important;
+}
+#chat-name {
+  font-size: 13px; font-weight: 600; color: white;
+  letter-spacing: 0.05em;
+  font-family: 'Space Grotesk', sans-serif !important;
+}
+#chat-status {
+  font-size: 10px; color: #888; letter-spacing: 0.08em;
+  font-family: 'Space Grotesk', sans-serif !important;
+}
+#chat-close {
+  background: none; border: none; color: #888;
+  cursor: pointer; font-size: 14px; padding: 4px;
+  transition: 0.2s;
+}
+#chat-close:hover { color: white; }
+#chat-messages {
+  flex: 1; overflow-y: auto; padding: 16px;
+  display: flex; flex-direction: column; gap: 10px;
+  scrollbar-width: thin; scrollbar-color: #333 transparent;
+}
+.chat-msg {
+  max-width: 85%; padding: 10px 14px;
+  border-radius: 12px; font-size: 13px; line-height: 1.6;
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.01em;
+}
+.chat-msg.bot {
+  background: #1a1a1a; color: #ddd;
+  border: 1px solid rgba(232,224,208,0.08);
+  align-self: flex-start;
+}
+.chat-msg.user {
+  background: #E8E0D0; color: black;
+  align-self: flex-end;
+}
+#chat-suggestions {
+  display: flex; flex-wrap: wrap; gap: 7px; margin-top: 4px;
+}
+.suggestion {
+  background: transparent;
+  border: 1px solid rgba(232,224,208,0.25);
+  color: #E8E0D0; padding: 6px 12px;
+  border-radius: 20px; font-size: 11px;
+  cursor: pointer; transition: 0.2s;
+  letter-spacing: 0.05em;
+  font-family: 'Space Grotesk', sans-serif !important;
+}
+.suggestion:hover {
+  background: rgba(232,224,208,0.1);
+  border-color: rgba(232,224,208,0.5);
+}
+#chat-input-row {
+  padding: 12px 14px;
+  border-top: 1px solid rgba(232,224,208,0.1);
+  display: flex; gap: 10px; align-items: center;
+}
+#chat-input {
+  flex: 1; background: #1a1a1a;
+  border: 1px solid rgba(232,224,208,0.15);
+  border-radius: 8px; padding: 10px 14px;
+  color: white; font-size: 13px;
+  font-family: 'Space Grotesk', sans-serif !important;
+  outline: none; transition: 0.2s;
+  letter-spacing: 0.01em !important;
+}
+#chat-input:focus { border-color: rgba(232,224,208,0.4); }
+#chat-input::placeholder { color: #555; }
+#chat-send {
+  background: #E8E0D0; color: black;
+  border: none; border-radius: 8px;
+  width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: 0.2s; flex-shrink: 0;
+}
+#chat-send:hover { background: white; }
+@media (max-width: 768px) {
+  #chat-window { width: calc(100vw - 40px); right: 20px; bottom: 90px; }
+  #chat-bubble { bottom: 20px; right: 20px; }
+}
+
+/* ===== SCROLL TYPOGRAPHY ===== */
+.reveal-child {
+  opacity: 0; transform: translateY(22px);
+  transition: opacity 0.9s cubic-bezier(0.4,0,0.2,1), transform 0.9s cubic-bezier(0.4,0,0.2,1);
+}
+.reveal-child.visible { opacity: 1; transform: translateY(0); }
+.reveal-child:nth-child(1) { transition-delay: 0s; }
+.reveal-child:nth-child(2) { transition-delay: 0.1s; }
+.reveal-child:nth-child(3) { transition-delay: 0.2s; }
+.reveal-child:nth-child(4) { transition-delay: 0.3s; }
+.header-section h1, .page-header h1, .article-header h1 {
+  opacity: 0; transform: translateY(24px);
+  animation: pageFadeUp 0.9s cubic-bezier(0.4,0,0.2,1) 0.2s forwards;
+}
+.header-section p, .page-header p, .article-meta {
+  opacity: 0; transform: translateY(16px);
+  animation: pageFadeUp 0.9s cubic-bezier(0.4,0,0.2,1) 0.4s forwards;
+}
+@keyframes pageFadeUp { to { opacity: 1; transform: translateY(0); } }
+
+
+/* ===== READABILITY OVERHAUL ===== */
+
+/* Headings, tighter tracking, larger, cleaner */
+h1 {
+  font-size: clamp(40px, 7vw, 82px) !important;
+  letter-spacing: 0.06em !important;
+  line-height: 1.05 !important;
+  font-weight: 700 !important;
+}
+
+h2 {
+  font-size: clamp(26px, 3.5vw, 38px) !important;
+  letter-spacing: 0.05em !important;
+  line-height: 1.15 !important;
+  font-weight: 700 !important;
+}
+
+h3 {
+  font-size: 16px !important;
+  letter-spacing: 0.06em !important;
+  line-height: 1.4 !important;
+  font-weight: 700 !important;
+}
+
+/* Body, comfortable reading size */
+p {
+  font-size: 16px !important;
+  line-height: 1.9 !important;
+  letter-spacing: 0.01em !important;
+  font-weight: 400 !important;
+}
+
+li {
+  font-size: 16px !important;
+  line-height: 1.9 !important;
+  letter-spacing: 0.01em !important;
+}
+
+/* Nav, readable but not huge */
+.nav-links a {
+  font-size: 11px !important;
+  letter-spacing: 0.18em !important;
+  font-weight: 600 !important;
+}
+
+/* Buttons, clear and punchy */
+.btn, .card-btn, button[type="submit"], .form-container button {
+  font-size: 11px !important;
+  letter-spacing: 0.2em !important;
+  font-weight: 600 !important;
+}
+
+/* Cards */
+.card h3 {
+  font-size: 15px !important;
+  letter-spacing: 0.06em !important;
+}
+
+.card p {
+  font-size: 14px !important;
+  line-height: 1.8 !important;
+}
+
+/* Resource items */
+.resource-item h3 {
+  font-size: 15px !important;
+  letter-spacing: 0.06em !important;
+}
+
+.resource-item p {
+  font-size: 14px !important;
+  line-height: 1.8 !important;
+}
+
+/* Article content, most readable */
+.article-content p {
+  font-size: 18px !important;
+  line-height: 2.0 !important;
+  letter-spacing: 0.01em !important;
+}
+
+.article-content h2 {
+  font-size: 26px !important;
+  letter-spacing: 0.04em !important;
+}
+
+/* Service/content pages */
+.content p, .service-section p {
+  font-size: 16px !important;
+  line-height: 1.9 !important;
+  color: #bbb !important;
+}
+
+.content li, .service-section li, .benefits li {
+  font-size: 16px !important;
+  line-height: 1.9 !important;
+  color: #bbb !important;
+}
+
+.content h2, .service-section h2 {
+  font-size: clamp(22px, 3vw, 34px) !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* Header sections */
+.header-section h1, .page-header h1 {
+  font-size: clamp(32px, 5vw, 52px) !important;
+  letter-spacing: 0.06em !important;
+  line-height: 1.1 !important;
+}
+
+.header-section p, .page-header p {
+  font-size: 17px !important;
+  line-height: 1.9 !important;
+  letter-spacing: 0.01em !important;
+}
+
+/* Article titles */
+.article-header h1 {
+  font-size: clamp(32px, 5vw, 58px) !important;
+  letter-spacing: 0.04em !important;
+  line-height: 1.1 !important;
+}
+
+/* Mission/story body */
+.mission-text p, .story-text p {
+  font-size: 16px !important;
+  line-height: 1.9 !important;
+}
+
+/* Footer */
+.footer-tagline {
+  font-size: 11px !important;
+  letter-spacing: 0.18em !important;
+}
+
+.footer-links a {
+  font-size: 11px !important;
+  letter-spacing: 0.14em !important;
+}
+
+.footer-bottom p {
+  font-size: 11px !important;
+  letter-spacing: 0.1em !important;
+}
+
+@media (max-width: 768px) {
+  p, li { font-size: 15px !important; }
+  .article-content p { font-size: 16px !important; }
+  h3 { font-size: 15px !important; }
+  .card p, .resource-item p { font-size: 13px !important; }
+}
+
+
+/* ===== SMOOTH SCROLL & TYPOGRAPHY ===== */
+html {
+  scroll-behavior: smooth !important;
+  scroll-padding-top: 100px !important;
+}
+
+/* Smoother reveal transitions */
+.reveal {
+  transition: opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 1.1s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+.reveal-child {
+  transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 1s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+/* Smooth section transitions */
+section {
+  transition: opacity 0.3s ease !important;
+}
+
+/* Smoother hero animation */
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroScale {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pageFadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Smoother card & button interactions */
+.card, .resource-item, .card-btn, .btn, .header-enquire-btn,
+.article-link-card {
+  transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+/* Smoother nav */
+nav {
+  transition: background 0.4s ease, backdrop-filter 0.4s ease !important;
+}
+
+/* Smoother image hover */
+img, video {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.6s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+
+/* ===== NOVA CHAT PROMPT ===== */
+#chat-prompt {
+  position: fixed;
+  bottom: 100px;
+  right: 100px;
+  background: #111;
+  border: 1px solid rgba(232,224,208,0.2);
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px;
+  color: #E8E0D0;
+  letter-spacing: 0.04em;
+  z-index: 9997;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  cursor: pointer;
+  animation: promptBounce 0.5s cubic-bezier(0.22,1,0.36,1) 2s both;
+  white-space: nowrap;
+}
+#chat-prompt::after {
+  content: '';
+  position: absolute;
+  right: -8px;
+  bottom: 14px;
+  width: 0; height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 8px solid #111;
+}
+#chat-prompt-close {
+  margin-left: 10px;
+  color: #666;
+  font-size: 11px;
+  cursor: pointer;
+}
+#chat-prompt-close:hover { color: #E8E0D0; }
+@keyframes promptBounce {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (max-width: 768px) {
+  #chat-prompt { right: 85px; bottom: 18px; font-size: 11px; padding: 10px 14px; }
+}
+
+</style>
+
+<script>
+
+
+/* -- NOVA RESPONSE LOGIC -- */
+const crisisPatterns = [
+  /kill(ing)? (my)?self/i, /want(ing)? to die/i, /suicid/i,
+  /end(ing)? (it|my life|everything)/i,
+  /don.t want to (be here|live|exist)/i,
+  /hurt(ing)? (my)?self/i, /self.harm/i, /cutting (my)?self/i,
+  /better off (without me|dead|gone)/i, /not worth (it|living|anything)/i,
+  /someone (is )?(hurting|abusing|hitting) me/i, /being abused/i,
+];
+const CRISIS_RESPONSE = "If you or someone you know is in danger or needs support right now, please reach out:\n\nLifeline - 13 11 14 (24/7 crisis support)\nKids Helpline - 1800 55 1800 (free & confidential for young people)\nBeyond Blue - 1300 22 4636\n\nYou are not alone and it is okay to ask for help. These services are free, confidential and available right now.";
+
+const personalPatterns = [
+  /i.m (gay|straight|bi|bisexual|trans|queer|lesbian)/i,
+  /i.m (struggling|lonely|lost|confused|scared|depressed|anxious|sad|upset|broken)/i,
+  /i (don.t|do not) have (any )?(friends|anyone)/i,
+  /nobody (likes|understands|cares about) me/i,
+  /i feel (so )?(alone|lost|invisible|empty|worthless|hopeless|stuck)/i,
+  /life (is|feels) (hard|tough|pointless|too much)/i,
+  /i hate (school|myself|my life|everything)/i,
+  /i.m being bullied/i,
+  /people (make fun|laugh) of me/i,
+];
+const PERSONAL_RESPONSE = "Thanks for sharing that, it takes courage. Whatever you're going through, you don't have to figure it out alone.\n\nKids Helpline (1800 55 1800) is free, confidential and built for exactly this.\n\nAnd if you want to know more about how Michael's work might help, I'm here for that too.";
+
+const jokePatterns = [
+  /tell (me )?a joke/i, /knock knock/i, /why did the/i, /say something funny/i, /make me laugh/i,
+];
+const spamPatterns = [
+  /\b(fuck|shit|bitch|cunt|dick|cock)\b/i,
+];
+
+function isCrisis(q) { return crisisPatterns.some(p => p.test(q)); }
+function isPersonal(q) { return personalPatterns.some(p => p.test(q)); }
+function isJoke(q) { return jokePatterns.some(p => p.test(q)); }
+function isSpam(q) { return spamPatterns.some(p => p.test(q)); }
+
+const faqs = [
+  // Greetings
+  { keys: ['hi','hello','hey','yo','wassup',"what's up",'sup','heyy','hiiii'],
+    answer: "Hey! I'm Nova, Michael's assistant. Got a question about Built By Dav? Ask me anything." },
+  { keys: ['anyone there','is this real','is this a bot','are you real','are you a bot','are you human','is there a real person'],
+    answer: "I'm Nova, an AI assistant for Built By Dav. I'm not a real person, but I can answer a lot. If you want to speak to Michael directly, head to the Enquire page." },
+  { keys: ['who are you','what are you','what is this','how does this work'],
+    answer: "I'm Nova, Michael's digital assistant. Ask me anything about Built By Dav, coaching, school talks, or Michael's story. If I don't know, I'll point you to the right place." },
+  { keys: ['can you help me','help me','i need help'],
+    answer: "That's what I'm here for. Ask me anything about Built By Dav, coaching, bullying, identity, discipline, or Michael's story. What do you want to know?" },
+  { keys: ["i'm bored",'im bored','bored'],
+    answer: "Ha. Well something brought you here. Got a question about Built By Dav? Ask away." },
+  { keys: ['this is weird','weird','strange'],
+    answer: "Fair enough. But if you've got a question about Michael or Built By Dav, I've got answers." },
+  { keys: ['lol','lmao','haha','hehe','lmfao'],
+    answer: "Glad you're having fun. Anything you actually want to know?" },
+  { keys: ['ok','okay','cool','whatever','fine','sure','interesting','noted'],
+    answer: "Alright. Anything else you want to know about Built By Dav?" },
+  { keys: ['tell me something','say something','surprise me'],
+    answer: "Michael was bullied through most of high school, lost 30kg, and rebuilt his entire identity from scratch. That is where Built By Dav started." },
+
+  // About Built By Dav
+  { keys: ['what is built by dav','tell me about built by dav'],
+    answer: "Built By Dav is a youth coaching and speaking brand founded by Michael D'Avolio. It offers 1:1 coaching, live school talks, group workshops, and discipline coaching, all built around helping young people develop real identity, confidence and discipline." },
+  { keys: ['who is dav','who is michael','about michael','founder'],
+    answer: "Michael D'Avolio is a youth coach, speaker and the founder of Built By Dav. He was bullied throughout high school, lost 30kg, and rebuilt his identity from the ground up. His work is about helping young people do the same." },
+  { keys: ['how old is michael','how old are you',"michael's age"],
+    answer: "Michael keeps that one to himself, but he's young enough to genuinely relate to what you're going through and old enough to have done the real work." },
+  { keys: ['where are you from','are you from australia','where does michael live','what city','what state'],
+    answer: "Michael is based in Australia. For in-person availability, reach out through the Enquire page." },
+  { keys: ['what is your story','why did you start this','what happened to you','your background'],
+    answer: "Michael was bullied throughout high school, struggled with his weight and identity, and felt invisible for years. He lost 30kg, rebuilt who he was, and started Built By Dav to help young people going through the same thing. The weight was just the visible part. The real transformation was on the inside." },
+  { keys: ['were you really bullied','is the bullying real','did it really happen'],
+    answer: "Yes, completely real. Michael was bullied throughout high school and it had a serious impact on his identity and confidence. He talks about it openly because sharing the real story is what actually helps people." },
+  { keys: ['how bad was the bullying','what kind of bullying did michael go through'],
+    answer: "Michael has spoken about it being a consistent pattern through high school that affected how he saw himself. He covers it in detail during school talks." },
+  { keys: ['did you go to therapy','did michael see a therapist','did michael get help'],
+    answer: "Michael is open about the fact that doing the inner work was part of the process. He is not a therapist but he works alongside young people who may also benefit from professional support." },
+  { keys: ['how did you lose weight','how did michael lose weight','lose 30kg'],
+    answer: "Consistency, discipline, and a complete mindset shift. Michael trained regularly and fixed his nutrition, but more importantly he changed how he thought about himself. The physical transformation followed the internal one." },
+  { keys: ['how long did it take','how long did the transformation take','how long to lose 30kg'],
+    answer: "It was not an overnight thing. Real change takes real time. Michael is upfront about that because he does not believe in shortcuts." },
+  { keys: ['what school did you go to','which school',"michael's school"],
+    answer: "Michael keeps that private, but he has spoken at schools across Australia. If you want a school visit, reach out through the Enquire page." },
+  { keys: ['why did you switch schools','did michael change schools','switching schools'],
+    answer: "Michael has talked about making changes in his environment as part of his journey. He covers it in person during school talks." },
+  { keys: ['was it hard switching schools','how was switching schools'],
+    answer: "Any big change is hard, especially at school age. Michael talks about navigating those kinds of transitions in his sessions and school talks." },
+  { keys: ['do you still get bullied','does michael still get bullied'],
+    answer: "Not in the way he used to. Building real identity and confidence changes how you move through the world. That is exactly what Built By Dav is about." },
+  { keys: ['are you famous','is michael famous','how popular is he'],
+    answer: "Michael is focused on impact over numbers. He would rather genuinely help one person than have a million followers who scroll past." },
+  { keys: ['how many followers','how big is your following'],
+    answer: "The numbers are growing, but Michael cares a lot more about the work itself. Follow Built By Dav on Instagram or TikTok to keep up." },
+  { keys: ['are you on tiktok','tiktok','what is your tiktok'],
+    answer: "Yes, Michael is on TikTok as Built By Dav. Links are in the footer of this page." },
+  { keys: ['are you on instagram','instagram','what is your instagram'],
+    answer: "Yes, Built By Dav is on Instagram. You can find the link in the footer of this page." },
+  { keys: ['do you have youtube','youtube channel'],
+    answer: "Check the socials in the footer for current platforms. YouTube may be coming." },
+  { keys: ['what is your website','website'],
+    answer: "You are already on it. This is the Built By Dav website." },
+  { keys: ['how do i contact you','can i email you','what is your email','contact','get in touch','reach out'],
+    answer: "You can reach Michael directly at builtbydav1@gmail.com or through the Enquire page on this site. He responds personally." },
+  { keys: ['is this free','is coaching free'],
+    answer: "The chatbot is free. Coaching, school talks and workshops are priced separately. Fill out the enquiry form and Michael will send you all the details." },
+  { keys: ['how much does it cost','how much','price','pricing','cost','fee','charge','rates'],
+    answer: "Pricing depends on whether you are after 1:1 coaching, a school visit, or a workshop. Fill out the enquiry form and Michael will send through the details directly." },
+  { keys: ['is there a free trial','free trial','try before'],
+    answer: "There is a discovery call available, so you can meet Michael and work out whether it is the right fit before committing to anything." },
+  { keys: ['do you offer discounts','discount','cheaper','concession'],
+    answer: "Reach out through the Enquire page and have an honest conversation with Michael. He is not in this for the money." },
+  { keys: ['can my parents pay','parents pay','who pays'],
+    answer: "Yes, parents are welcome to be involved in the booking and payment process. Michael is used to working with both young people and their families." },
+  { keys: ['do you work with kids','how old do you have to be','minimum age'],
+    answer: "Michael works mainly with high school students and young people. If you are unsure whether it is the right fit for the age group, just reach out and ask." },
+  { keys: ['do you work with adults','adults','am i too old'],
+    answer: "The core focus is young people, but reach out and have a conversation. Every situation is different." },
+  { keys: ['do you work online','are you in person or online','remote','virtual'],
+    answer: "Both. Coaching can be done online and school talks are done in person. Reach out to discuss what works for you." },
+
+  // Bullying
+  { keys: ['i am being bullied','someone is bullying me','being bullied','getting bullied'],
+    answer: "First, that takes courage to say. You are not the problem. What is happening to you is not okay and it does not define you. If you want to talk to someone right now, Kids Helpline (1800 55 1800) is free and confidential. Michael also works with young people going through exactly this." },
+  { keys: ['what do i do about bullying','how do i stop being bullied','what do i do if i am being bullied'],
+    answer: "Tell someone you trust, whether that is a parent, teacher or helpline. Document what is happening if you can. You should not have to manage it alone. Michael covers this in his school talks and 1:1 coaching." },
+  { keys: ['why do people bully','why do bullies bully','why does bullying happen'],
+    answer: "Usually it comes from insecurity, the need for control, or their own pain being taken out on someone else. That does not make it okay, but understanding it can take some of its power away." },
+  { keys: ['is bullying normal','does bullying happen to everyone'],
+    answer: "It is unfortunately common, but that does not mean it is okay or that you deserve it. No one does." },
+  { keys: ['does bullying ever stop','will it get better','does it get better','when does it stop'],
+    answer: "Yes. It does get better. Michael is living proof of that. The version of you on the other side of this is stronger than you can imagine right now." },
+  { keys: ['how long did your bullying last','how long was michael bullied'],
+    answer: "It went on through most of Michael's high school years. That is part of why he understands it so deeply and is so committed to helping others in the middle of it." },
+  { keys: ['what type of bullying','what kind of bullying did you go through'],
+    answer: "Michael has spoken about it being a consistent pattern through school that affected his confidence and identity. He talks about it openly in his school presentations." },
+  { keys: ['was it verbal bullying','verbal bullying','name calling','being called names'],
+    answer: "Verbal bullying can do just as much damage as anything physical, sometimes more. Michael knows that firsthand. It is real and it matters." },
+  { keys: ['online bullying','i am being cyberbullied','cyberbullied','cyberbullying','bullied online'],
+    answer: "Online bullying is just as serious as anything that happens in person. Document everything and tell a trusted adult. Kids Helpline (1800 55 1800) can also help." },
+  { keys: ['someone is spreading rumours','spreading rumours','people are saying things'],
+    answer: "That is a form of bullying and it is not okay. The most powerful thing you can do is build your identity so strong that their words have no grip on you. Michael coaches exactly that." },
+  { keys: ['people are ignoring me at school','being ignored','excluded at school'],
+    answer: "Being excluded is a real form of bullying and it is painful. You deserve people who see you. Michael has been there." },
+  { keys: ['i have no friends','no friends','no one to talk to','no mates'],
+    answer: "That feeling is one of the loneliest things. But it is not permanent. Michael felt the same way. The right people come when you start becoming the real version of yourself." },
+  { keys: ['everyone hates me','no one likes me','nobody likes me'],
+    answer: "That is your pain talking, not reality. It feels that way when you are in it, but it is not the full picture. Michael felt invisible for years. Things changed." },
+  { keys: ['i feel like an outsider','i do not fit in','i do not belong','outsider'],
+    answer: "Feeling like you do not fit in is one of the most universal experiences there is, even though it feels completely isolating. Michael built his entire brand around that exact feeling. You are not alone." },
+  { keys: ['nobody understands me','no one understands me','i feel misunderstood'],
+    answer: "Michael has said those exact words. It gets better when you find the right people, and sometimes that starts by choosing to understand yourself first." },
+  { keys: ['should i tell someone','should i tell my parents','should i tell a teacher','should i speak up'],
+    answer: "Yes. Telling someone is not weak, it is smart. Start with whoever feels safest, whether that is a parent, teacher, school counsellor or Kids Helpline on 1800 55 1800." },
+  { keys: ['what if telling makes it worse','scared to tell','what if no one believes me','what if they do not believe me'],
+    answer: "That fear is real and valid. If one person does not help, go to another. Keep telling until someone does something. You deserve to be believed." },
+  { keys: ['i told someone and nothing happened','the school is not doing anything','no one is helping'],
+    answer: "That is incredibly frustrating and it happens more than it should. Try another teacher, a school counsellor, or contact Kids Helpline (1800 55 1800) for guidance. You have not run out of options." },
+  { keys: ['my parents do not understand','parents do not get it','my parents do not believe me'],
+    answer: "That is really hard. Sometimes parents do not understand because they have not been through it the same way. Try showing them this site, or reach out to Michael directly." },
+  { keys: ['i feel alone','i feel so alone','i am so alone','loneliness'],
+    answer: "You are not alone, even though it completely feels that way. Michael felt the same for years. Kids Helpline is free, confidential and available 24/7 on 1800 55 1800." },
+  { keys: ['i do not want to go to school','i am faking sick to avoid school','faking sick','school avoidance'],
+    answer: "If going to school feels unsafe or unbearable, that is a signal worth listening to. Talk to a parent, school counsellor or Kids Helpline (1800 55 1800). You should not have to white-knuckle through every day alone." },
+  { keys: ['i hate school','school is the worst','i dread every morning','i cry before school'],
+    answer: "Michael hated school too. It was the hardest years of his life. If you are dreading every single day, something needs to change. You do not have to just survive it." },
+  { keys: ['i have panic attacks at school','panic attacks'],
+    answer: "Panic attacks are real and serious. Please speak to a doctor, school counsellor or mental health professional. Kids Helpline (1800 55 1800) and Beyond Blue (1300 22 4636) can also help." },
+  { keys: ['i feel anxious all the time','constant anxiety','always anxious'],
+    answer: "Living with constant anxiety is exhausting. Please talk to someone who can help, whether that is a GP, counsellor or a helpline. Michael's coaching works well alongside professional support." },
+  { keys: ['i feel depressed','i think i am depressed','depression'],
+    answer: "If you are feeling depressed, please speak to a doctor or mental health professional. Beyond Blue (1300 22 4636) and Kids Helpline (1800 55 1800) are there for you. Michael cares and his coaching works alongside professional support." },
+  { keys: ['i feel worthless','feel worthless'],
+    answer: "You are not worthless. That feeling is one of the cruellest lies that bullying and hard times tell you. Michael felt it too. Things can change. Please reach out to Kids Helpline on 1800 55 1800 if you need to talk right now." },
+  { keys: ['i feel stupid','feel stupid','i am stupid'],
+    answer: "Feeling stupid is usually the result of being made to feel that way by others, not the truth about who you are. Intelligence shows up in more ways than most people realise." },
+  { keys: ['i feel ugly','feel ugly','i am ugly','i hate how i look'],
+    answer: "Michael spent years feeling the same way. The way you see yourself right now is not the full picture. That is part of what the identity work is about, rebuilding how you see yourself from the inside out." },
+  { keys: ['i feel invisible','feel invisible','nobody notices me'],
+    answer: "Michael used the word invisible a lot when talking about school. It is one of the worst feelings. You are not invisible here. Kids Helpline (1800 55 1800) is also there if you need to talk." },
+  { keys: ['i do not know who i am anymore','bullying has changed me','i used to be confident and now i am not'],
+    answer: "Bullying can strip your sense of self completely. Michael talks about this a lot. The good news is identity can be rebuilt. That is literally what Built By Dav exists for." },
+
+  // Identity
+  { keys: ['how do i find myself','how do i find who i am','finding yourself'],
+    answer: "It starts with stripping back everything you do to impress others and asking what is left. Michael's 1:1 coaching is built around exactly this." },
+  { keys: ['how do i build confidence','build confidence','more confident','gain confidence'],
+    answer: "Confidence is built through action, not through waiting to feel ready. Small wins stack up. Michael's coaching focuses on building real confidence, not the kind that falls apart under pressure." },
+  { keys: ['how do i stop caring what people think','stop caring what others think','care too much what people think'],
+    answer: "You stop caring what people think when you care more about who you actually are. That requires knowing yourself deeply first. It is a process and Michael works through it in coaching." },
+  { keys: ['how do i be myself','how to be authentic','be my true self'],
+    answer: "Start by noticing the moments when you change who you are to fit in. Awareness is step one. The coaching work goes a lot deeper from there." },
+  { keys: ['i do not know who i am','i feel lost','lost my identity','lost myself'],
+    answer: "That is one of the most common things Michael hears. It is not a flaw, it is a starting point. Reach out through the Enquire page if you want to work through it." },
+  { keys: ['how do i rebuild my identity','rebuilding identity','rebuild myself'],
+    answer: "Rebuilding identity is about deciding who you want to be and making daily choices that reflect that. Michael did it himself and built a whole coaching framework around it. Check out the Identity page on this site." },
+  { keys: ['what even is identity','what is identity','define identity'],
+    answer: "Identity is the way you see yourself and show up in the world. It is shaped by your experiences, values, and the story you tell yourself about who you are. Michael's work is about helping you write a better one." },
+  { keys: ['why does identity matter','why is identity important'],
+    answer: "Because everything flows from how you see yourself. Your confidence, your relationships, your discipline and your decisions. Get the identity right and the rest becomes possible." },
+  { keys: ['how long does it take to rebuild yourself','how long does identity work take','how long does it take to change'],
+    answer: "There is no fixed timeline. People who do the work consistently start noticing real shifts within weeks. The deeper transformation takes longer and it is worth every bit of it." },
+  { keys: ['how did you become confident','how did michael become confident'],
+    answer: "Slowly. Through doing hard things, being honest with himself, building his body, and surrounding himself with the right environment. He did not wake up confident one day. He earned it." },
+  { keys: ['were you ever confident','was michael ever confident growing up'],
+    answer: "Not for most of his school years. Confidence came after the work. That is why he is so certain it is buildable, because he had to build it from scratch himself." },
+  { keys: ['did you ever feel like giving up','did michael ever want to give up','did he ever quit'],
+    answer: "Yes. Michael is open about that. What kept him going was a decision to not let where he was be where he stayed. That choice changed everything." },
+  { keys: ['what kept you going','what kept michael going','how did he keep going'],
+    answer: "A decision. And discipline. Not motivation, which comes and goes. Discipline. That is why it is at the core of everything Built By Dav does." },
+  { keys: ['how do i stop being insecure','stop being insecure','overcome insecurity'],
+    answer: "Insecurity usually lives in the gap between who you are and who you think you should be. Michael's work is about closing that gap from the inside." },
+  { keys: ['how do i love myself','self love','love myself'],
+    answer: "It starts with stopping the habit of treating yourself like the enemy. Michael coaches young people on building a real relationship with themselves, grounded in evidence and action, not just affirmations." },
+  { keys: ['how do i stop comparing myself','stop comparing','i always compare myself'],
+    answer: "Redirect it inward. Are you better than you were last week? That is the only comparison that matters. Michael's discipline framework is built around this idea." },
+  { keys: ['everyone else seems fine and i am not','everyone else has it together','why does everyone else look okay'],
+    answer: "They do not. Social media and school hallways are the world's biggest highlight reels. Almost everyone is running some version of the same internal battle. You are not as alone in this as it feels." },
+  { keys: ['is it normal to not know who you are at my age','normal to feel lost at my age'],
+    answer: "Completely normal. Figuring out who you are is one of the hardest parts of growing up. The fact that you are asking the question means you are already doing better than most." },
+  { keys: ['i feel like i am wearing a mask','wearing a mask','i pretend to be someone else'],
+    answer: "A lot of people do. Michael talks about this, the version you perform for others versus who you actually are. The coaching work is about closing that gap." },
+  { keys: ['i act differently around different people','different person around different people'],
+    answer: "Everyone adjusts a little. But when the gap becomes too big, it starts to cost you. Identity work helps you find a version of yourself that stays consistent regardless of the room." },
+  { keys: ['i do not know my real personality','what is my real personality'],
+    answer: "That is a really honest thing to sit with and it is where a lot of Michael's coaching starts. Reach out through the Enquire page if you want to work through it." },
+  { keys: ['how do i stop people pleasing','i always do what others want','i cannot say no','people pleaser'],
+    answer: "People pleasing usually comes from a fear of rejection. Learning to say no is a skill and it can be built. Michael works on this in coaching because it is directly tied to identity and confidence." },
+  { keys: ['how do i stand up for myself','standing up for myself'],
+    answer: "It starts with believing you are worth standing up for. That sounds simple but it is deep work. Michael covers this in both his coaching and his school talks." },
+  { keys: ['i am too quiet','i am shy','too shy','i want to speak up more'],
+    answer: "Being quiet is not a flaw. But if it is holding you back from saying what you think or being who you want to be, that is worth working on. Michael coaches on this directly." },
+  { keys: ['i want to be more outgoing','be more outgoing','more social'],
+    answer: "That is a skill, not a personality type you are either born with or not. It can be built through practice and identity work." },
+  { keys: ['how do i make friends','making friends','how to make friends'],
+    answer: "Start by being genuinely interested in others and comfortable enough with yourself that you do not need people to validate you. From there it becomes a lot easier." },
+  { keys: ['how do i talk to people','talking to people is hard','how to talk to people'],
+    answer: "Most people are waiting for someone else to start the conversation. Just go first. It gets easier with practice. Michael coaches on social confidence as part of the identity work." },
+  { keys: ['i am socially awkward','socially awkward','social anxiety','i get nervous around people'],
+    answer: "Social confidence is a skill, not a personality trait. Michael was quiet and withdrawn in school. It changed. Reach out through the Enquire page if you want real support on this." },
+  { keys: ['i freeze up when i talk to people','i freeze up','freeze up in conversations'],
+    answer: "That freeze response is usually anxiety. The more you put yourself in those situations, the less your brain treats them as threats. Michael coaches on this as part of building real confidence." },
+  { keys: ['i do not know what to say in conversations','run out of things to say'],
+    answer: "Ask questions. People love talking about themselves and it takes the pressure off you. From there the conversation usually flows. It is a skill and it gets easier." },
+  { keys: ['how do i be more likeable','more likeable'],
+    answer: "Be genuinely interested in people, be honest, and be yourself. Likability is usually just people feeling like you actually see them." },
+  { keys: ['why do people not like me','why does nobody like me'],
+    answer: "Usually it is not about you in the way you think. People's reactions are shaped by their own stuff too. The coaching work around identity and social confidence is worth exploring." },
+  { keys: ['am i the problem','is it my fault','is something wrong with me'],
+    answer: "Asking that question takes real self-awareness. Sometimes we do have blind spots. Michael works with young people on honest self-reflection, not to make them feel bad, but to help them grow." },
+
+  // Discipline & Motivation
+  { keys: ['what is discipline','define discipline','what does discipline mean'],
+    answer: "Discipline is doing what needs to be done even when you do not feel like it. Michael describes it as the gap between who you are and who you have decided to become, and choosing to close it every day." },
+  { keys: ['how do i be more disciplined','become more disciplined','build discipline','get disciplined'],
+    answer: "Start small. One habit. One decision. Done consistently. Discipline is not about being extreme, it is about being consistent. Michael's coaching and the Discipline Metrics are built around this." },
+  { keys: ['how do i stay motivated','stay motivated','keep motivated'],
+    answer: "Motivation fades. Discipline fills the gap. Michael's whole framework is about building systems that keep you moving even on the days you do not feel like it." },
+  { keys: ['i keep giving up on things','i always give up','i quit everything','i never follow through'],
+    answer: "That is a pattern worth breaking. Usually it comes from goals set too big, no accountability, or losing sight of why you started. Michael coaches on this directly." },
+  { keys: ['i start things and never finish them','never finish things','i cannot follow through'],
+    answer: "Finishing is a skill. It can be built. Michael works on consistency and completion as core parts of real discipline." },
+  { keys: ['how do i build habits','building habits','how to build habits'],
+    answer: "Start with one habit. Attach it to something you already do. Keep it small enough that you cannot say no. Build from there." },
+  { keys: ['what habits should i build','good habits to build','recommend habits'],
+    answer: "Michael recommends starting with movement, sleep and some form of daily reflection. Get those three right and everything else becomes easier." },
+  { keys: ['how do i wake up early','waking up early','morning routine'],
+    answer: "Go to bed earlier. Put your phone away. Have something worth waking up for. Michael talks about the morning as the first test of discipline each day." },
+  { keys: ['how do i stop procrastinating','stop procrastinating','i procrastinate','procrastination'],
+    answer: "Break it into the smallest possible first step and just do that. Procrastination is usually fear or overwhelm in disguise." },
+  { keys: ['i cannot focus','i have no focus','i struggle to focus'],
+    answer: "Focus is a muscle. Remove distractions, especially your phone, and work in short focused blocks. Build the duration up from there. Michael covers this in the discipline coaching." },
+  { keys: ['i have no motivation','no motivation','zero motivation','lost my motivation'],
+    answer: "Motivation is not reliable. It is a feeling. Discipline is a decision. Michael's whole framework is built around this distinction." },
+  { keys: ['i feel lazy all the time','feel lazy','i am lazy'],
+    answer: "Laziness is usually tiredness, low mood, or a lack of direction in disguise. Michael asks: what are you moving towards? Without a clear direction, forward motion is harder." },
+  { keys: ['how do i get off my phone','phone addiction','i am addicted to my phone','too much screen time'],
+    answer: "Put it in another room. Use app limits. Replace the habit with something physical. Michael talks about the phone being one of the biggest discipline killers for young people today." },
+  { keys: ['i spend too much time on social media','social media addiction','too much social media'],
+    answer: "Social media is designed to be addictive. Set hard limits, turn off notifications, and replace the time with something that actually builds you." },
+  { keys: ['how do i study better','study tips','how to study','study more effectively'],
+    answer: "Active recall over re-reading. Timed sessions with breaks. Phone out of the room. Study in the same place every day. Discipline in study is the same as discipline in anything." },
+  { keys: ['how do i get better grades','better grades','improve my grades'],
+    answer: "Grades usually reflect consistency more than raw intelligence. Show up to every class, do every task, ask for help when needed, and study daily rather than cramming." },
+  { keys: ['i am failing school','failing at school','failing my subjects'],
+    answer: "Talk to a teacher or counsellor first. Then look at your habits and how you are spending your time. Michael works with young people on the discipline and mindset side of school performance." },
+  { keys: ['i cannot concentrate in class','distracted in class','i zone out in class'],
+    answer: "Sit at the front. Phone away completely. Write by hand rather than typing. Ask questions when you zone out. Small environmental changes make a big difference." },
+  { keys: ['how do i manage my time','time management','manage my time better'],
+    answer: "Write down everything you need to do. Assign each task a time. Protect that time. Michael covers time management as part of the discipline coaching framework." },
+  { keys: ['i am always late','always running late','never on time'],
+    answer: "Set everything 15 minutes earlier than it needs to be. Treat punctuality as a form of respect for yourself and others." },
+  { keys: ['i never finish things on time','missing deadlines','never meet deadlines'],
+    answer: "Break bigger tasks into smaller ones with their own mini deadlines. Start earlier than you think you need to." },
+  { keys: ['how do i stop being disorganised','disorganised','get organised'],
+    answer: "One system. Written down. Checked every morning and every night. A notebook or basic to-do app is enough. Organisation is a skill, not a personality type." },
+  { keys: ['what is the built by dav discipline metrics','discipline metrics','bbd discipline metrics'],
+    answer: "The Built By Dav Discipline Metrics is Michael's personal framework for measuring real discipline, built around three daily questions that keep you honest with yourself. It is covered in detail on the Discipline Coaching page." },
+  { keys: ['how do the three questions work','what are the three questions','three questions','the 3 questions'],
+    answer: "The three questions are a daily self-check built into the Built By Dav Discipline Metrics. They are designed to keep you accountable to who you said you would be, not just what you planned to do. Reach out to Michael for the full framework." },
+  { keys: ['do the three questions actually work','does the discipline framework work'],
+    answer: "Michael uses them himself every day. The people he coaches who apply them consistently see real shifts. Like any tool, they only work if you actually use them." },
+  { keys: ['how long until i see results','when will i see results'],
+    answer: "Most people start noticing something within two to four weeks of consistent work. Real transformation takes longer. Michael is upfront about that because he does not believe in shortcuts." },
+  { keys: ['what if i miss a day','i missed a day','slipped up'],
+    answer: "One day does not break the chain. Missing a second day might. Michael says the goal is never perfection, it is resilience. Get back on it the next day without drama." },
+  { keys: ['what if i fail','scared of failing'],
+    answer: "Failure is part of the process. Michael talks about it not as the opposite of success but as part of the path. What you do after failure is what defines you." },
+  { keys: ['how do i get back on track after failing','get back on track','fell off track'],
+    answer: "Do one thing today. Not a big restart plan. Just one thing in the right direction. That is how momentum rebuilds." },
+  { keys: ['i gave up last time how do i not give up again','how do i stay committed'],
+    answer: "Know your why. Write it down. Read it on the hard days. And get accountability. Michael works on exactly this in coaching." },
+  { keys: ['how do i hold myself accountable','accountability','self accountability'],
+    answer: "Tell someone what you are going to do. Write it down the night before. Review it at the end of the day. Accountability starts internal but external support speeds it up." },
+  { keys: ['how do i make myself do things i do not want to do','doing things i do not want to do'],
+    answer: "Start before you feel ready. The hardest part is always the first two minutes. Once you start, momentum takes over." },
+  { keys: ['how do i push through when i want to quit','push through','keep going when it is hard'],
+    answer: "Remind yourself why you started. Not the outcome, the reason. Then take one more step. That is all. This is the moment where discipline actually gets built." },
+  { keys: ['what do you do when you do not feel like training','no motivation to train'],
+    answer: "Michael trains anyway. Not because he always wants to but because he decided who he is and that person trains. Identity-based discipline is more reliable than motivation." },
+  { keys: ['how do you stay consistent','staying consistent','consistency'],
+    answer: "Michael talks about consistency being less about willpower and more about identity. When you decide you are someone who does the thing, the decision is already made before the feeling shows up." },
+  { keys: ['what is your daily routine',"michael's routine",'daily routine'],
+    answer: "Michael keeps the specifics personal, but the principles are consistent: early start, movement, intentional work, and a daily review." },
+  { keys: ['what time do you wake up','when does michael wake up'],
+    answer: "Early. Michael is a big believer in owning the morning before the rest of the day takes over." },
+
+  // Gym & Fitness
+  { keys: ['how did you lose 30kg','how did michael lose 30 kg','how did he lose the weight','weight loss journey'],
+    answer: "Consistent training, fixing his nutrition, and a complete mindset shift. Michael will be the first to tell you the physical change was a result of the internal work, not the other way around." },
+  { keys: ['how long did it take to lose 30kg','how long did the weight loss take'],
+    answer: "It was not a quick process. Real and lasting change takes time and consistency. Michael does not promote shortcuts." },
+  { keys: ['what did you eat',"michael's diet",'what is your diet','do you count calories'],
+    answer: "Michael focused on whole foods and consistent eating patterns. He does not promote any specific diet because what works is individual." },
+  { keys: ['what do you train','how many days a week do you train','training schedule'],
+    answer: "Michael trains consistently with a mix of resistance training and conditioning. He keeps the specifics personal but covers principles in coaching." },
+  { keys: ['what gym do you go to',"michael's gym"],
+    answer: "Michael keeps that private but he is a big believer in showing up consistently regardless of the environment." },
+  { keys: ['how do i start going to the gym','starting the gym','i want to start the gym','new to the gym'],
+    answer: "Just go. The first session is the hardest. Pick three exercises, learn the form, and go again tomorrow. Do not wait until you feel ready." },
+  { keys: ['i am scared to go to the gym','scared of the gym','gym anxiety','intimidated by the gym'],
+    answer: "Almost everyone feels that way at the start. Michael did too. Everyone in the gym is focused on themselves. Go once and the second time is easier." },
+  { keys: ['i do not know what to do at the gym','no idea at the gym','what to do at gym'],
+    answer: "Start with the basics: squats, pushing, pulling, and some cardio. There are free resources everywhere. If you want a proper plan, reach out through the Enquire page." },
+  { keys: ['what exercises should i do','best exercises','exercises for beginners'],
+    answer: "For most people starting out: squats, deadlifts, bench press, rows and walking or running. Master the basics before anything else." },
+  { keys: ['how do i build muscle','building muscle','gain muscle'],
+    answer: "Lift progressively heavier over time, eat enough protein, sleep well, and be consistent over months not weeks. That is it." },
+  { keys: ['how do i lose weight','losing weight','i want to lose weight'],
+    answer: "Consistent movement, better food choices, and enough sleep. Michael lost 30kg through those fundamentals. No extreme diets, no shortcuts. Just consistent action." },
+  { keys: ['is cardio or weights better','cardio vs weights','should i do cardio or weights'],
+    answer: "Both. Weights build the body, cardio builds the engine. Start with whichever you will actually do consistently." },
+  { keys: ['how long should i train for','training session length'],
+    answer: "Forty five to sixty minutes is usually enough if you are focused. Consistency matters more than duration." },
+  { keys: ['what do you eat before training','pre workout food','what to eat before gym'],
+    answer: "Something with carbs and a little protein about 60 to 90 minutes before. Nothing too heavy." },
+  { keys: ['what do you eat after training','post workout food','what to eat after gym'],
+    answer: "Protein and carbs within an hour of training. Keep it whole foods where you can." },
+  { keys: ['do you take supplements','supplements'],
+    answer: "Michael focuses on food first. Supplements fill gaps, they do not replace good nutrition." },
+  { keys: ['do you take protein powder','protein powder'],
+    answer: "Michael uses protein powder as a convenient way to hit daily protein targets, not as a replacement for real food." },
+  { keys: ['how do i get a better physique','better physique','improve my physique'],
+    answer: "Lift consistently, eat well, sleep enough, and be patient. Results compound over months and years." },
+  { keys: ['how do i get abs','get abs','six pack'],
+    answer: "Abs are built in the kitchen more than the gym. Reduce body fat through consistent nutrition and training and they will show. It takes longer than most people expect." },
+  { keys: ['how do i get bigger arms','bigger arms','arms not growing'],
+    answer: "Train them consistently, progressively overload, and make sure you are eating enough. Arms grow slower than people expect." },
+  { keys: ['i am skinny and want to bulk up','skinny','underweight want to gain muscle'],
+    answer: "Eat more than you think you need to. Lift heavy compound movements. Track your food until you know what enough looks like." },
+  { keys: ['i am overweight and want to lose weight','overweight','need to lose weight'],
+    answer: "Start with movement you will actually do and food changes you can sustain. Michael lost 30kg through consistency over time. That is the path that lasts." },
+  { keys: ['is it okay to train every day','can i train every day'],
+    answer: "Rest and recovery are part of training. You can be active every day but should not be going hard every day. Sleep is where the gains actually happen." },
+  { keys: ['how do i recover after training','recovery','sore after training'],
+    answer: "Sleep is the number one recovery tool. Then food, water, and light movement. Do not skip rest days." },
+  { keys: ['i hate cardio what do i do','hate cardio','cardio is boring'],
+    answer: "Find a form of cardio you hate the least. Walking, sport, swimming, boxing. It does not have to be a treadmill." },
+  { keys: ['can i build discipline without the gym','do i have to go to the gym','discipline without gym'],
+    answer: "Yes. The gym is one of Michael's tools, not the only one. Discipline is built in any area where you do hard things consistently." },
+
+  // Coaching
+  { keys: ['how does coaching work','what happens in coaching','coaching process'],
+    answer: "Michael's coaching is 1:1, structured around your goals and what you are going through. Sessions are conversation-based and practical. It is not therapy, it is real work toward who you want to become." },
+  { keys: ['what happens in a session','what does a session look like'],
+    answer: "Each session is focused on where you are, where you want to be, and what is getting in the way. Michael asks the right questions and gives direct, honest feedback." },
+  { keys: ['how long are the sessions','session length'],
+    answer: "Reach out through the Enquire page for full details on session length and structure. It depends on the program." },
+  { keys: ['how many sessions do i need','number of sessions'],
+    answer: "That depends on where you are starting from and what you want to achieve. Michael will talk through that with you in the discovery call." },
+  { keys: ['how do i sign up','sign up','how to start coaching','how to start'],
+    answer: "Fill out the enquiry form on the Enquire page and Michael will reach out personally to set up a discovery call." },
+  { keys: ['can i do a free session first','free session','trial session'],
+    answer: "There is a discovery call available where you can meet Michael and talk through whether coaching is the right fit before committing to anything." },
+  { keys: ['what is the discovery call','discovery call'],
+    answer: "The discovery call is a free initial conversation with Michael. It is a chance to get to know each other, talk through what you are dealing with, and work out whether coaching is the right fit." },
+  { keys: ['how do i book a discovery call','book discovery call','book a call with michael'],
+    answer: "Head to the Enquire page, fill in the form, and Michael will reach out to set one up." },
+  { keys: ['will my parents need to be involved','do my parents need to know','parents involved in coaching'],
+    answer: "For younger clients, parental involvement in the booking process is standard. What you discuss with Michael in sessions stays between you unless there is a safety concern." },
+  { keys: ['is it confidential','is coaching confidential','is it private'],
+    answer: "Yes. What you share with Michael stays between you both. He takes that seriously." },
+  { keys: ['will you tell my parents what i say','will michael tell my parents'],
+    answer: "No. Sessions are confidential. Michael will not share what you talk about with your parents, with the exception of serious safety concerns." },
+  { keys: ['will you tell my school','will michael tell my school'],
+    answer: "No. Coaching is private. Michael has no relationship with your school unless you or your family invites that." },
+  { keys: ['i do not want anyone to know i am doing this','keeping coaching private'],
+    answer: "That is completely fine. Coaching is private and what you choose to tell others is entirely up to you." },
+  { keys: ['do you judge people','will michael judge me'],
+    answer: "No. Michael has been through enough to know that judging people for where they are is pointless. The whole point is meeting people where they are and helping them move forward." },
+  { keys: ['will you be harsh with me','is michael harsh','is coaching tough'],
+    answer: "Michael is honest and direct, which sometimes feels challenging. But it is never harsh for the sake of it. He is on your side." },
+  { keys: ['what if i do not open up','i struggle to open up','i find it hard to talk'],
+    answer: "Michael works at your pace. You do not have to share anything you are not ready to share. The coaching is still valuable even if you start slow." },
+  { keys: ['what if i do not know what to say in coaching','do not know how to start'],
+    answer: "Michael will guide the conversation. You do not need to come in with a script. Just show up. That is enough to start." },
+  { keys: ['do i have to talk about the bullying','do i have to talk about my past'],
+    answer: "No. The coaching goes where you need it to go. If you want to focus on discipline or identity without going into your history, that is completely valid." },
+  { keys: ['can we focus on just discipline and not my past','just discipline coaching'],
+    answer: "Absolutely. The Discipline Coaching program is built for exactly that. Check out the Discipline Coaching page or reach out through the Enquire page." },
+  { keys: ['what platform do we use','is it on zoom','online sessions platform'],
+    answer: "Online sessions are available. The platform depends on what works best for both parties. Reach out to discuss." },
+  { keys: ['can we do it in person','in person coaching','face to face coaching'],
+    answer: "In-person sessions may be available depending on location. Reach out through the Enquire page to discuss." },
+  { keys: ['what time are sessions available','what days are you available','are you available on weekends','availability'],
+    answer: "Availability varies. Fill out the enquiry form and Michael will work out a time that suits you." },
+  { keys: ['what if i need to cancel','cancellation','cancelling a session'],
+    answer: "Reach out in advance and Michael will work with you. Life happens. Just communicate." },
+  { keys: ['how do i pay','payment','how to pay'],
+    answer: "Payment details are discussed when you book. Reach out through the Enquire page to get started." },
+  { keys: ['do you have a payment plan','payment plan','pay in instalments'],
+    answer: "Reach out through the Enquire page and have a direct conversation with Michael. He is flexible where he can be." },
+
+  // School Speaking
+  { keys: ['do you come to schools','does michael visit schools','school visits','come to my school'],
+    answer: "Yes. Michael does live school talks at high schools across Australia. If you want him at your school, reach out through the Enquire page." },
+  { keys: ['what do you talk about at schools','what does michael talk about','school talk topics'],
+    answer: "Michael covers bullying awareness, identity, discipline, and real life change. He talks about his own experience and how young people can apply the same principles to their own lives." },
+  { keys: ['how do i get my school to book you','get michael to come to my school','book michael for school'],
+    answer: "Tell a teacher or student welfare coordinator about Built By Dav and point them to this website or the Enquire page. Schools can reach out directly." },
+  { keys: ['can i tell my teacher about you','telling my teacher about michael'],
+    answer: "Please do. Share the website with them or the Enquire page. That is exactly how most school bookings happen." },
+  { keys: ['do you speak to primary schools','primary school'],
+    answer: "Michael's content is primarily built for high school students. Reach out to discuss if there is a specific need." },
+  { keys: ['do you speak to high schools','high school talks'],
+    answer: "Yes. That is the core audience. Michael's talks are designed for high school students and built around what they are actually going through." },
+  { keys: ['how long is the talk','school talk length','talk duration'],
+    answer: "Reach out through the Enquire page for full details on timing and format. It can vary depending on the school." },
+  { keys: ['is it just a talk or do you do activities','does michael do activities','interactive talk'],
+    answer: "Michael's presentations are engaging and include real conversation, not just a lecture. For more structured workshops, check out the Workshops page." },
+  { keys: ['do students get to ask questions','q and a at school talks'],
+    answer: "Yes. Michael makes space for real questions and real conversation. That is where some of the most meaningful moments happen." },
+  { keys: ['have you spoken at schools before','school speaking experience'],
+    answer: "Yes. Michael has spoken at schools and continues to do so. Reach out for more information." },
+  { keys: ['what do students think of your talks','student feedback','reviews of school talks'],
+    answer: "The feedback has been genuinely meaningful. Michael puts a lot into making it real and relevant, not a generic presentation. Reach out for more details." },
+  { keys: ['what is the difference between the talk and the workshop','talk vs workshop'],
+    answer: "A school talk is a presentation to a larger group. A workshop is smaller, more interactive, and goes deeper. Both are available." },
+  { keys: ['how much does it cost for schools','school booking cost','school talk pricing'],
+    answer: "Pricing for school visits is available on enquiry. Fill out the Enquire form and Michael will send through the details." },
+  { keys: ['can parents attend the talk','parents at school talk'],
+    answer: "That is up to the school and their setup. Reach out through the Enquire page to discuss what works." },
+
+  // Random & Funny
+  { keys: ['are you actually built','do you even lift','is michael built','is he jacked'],
+    answer: "Michael lost 30kg and has been training consistently ever since. So yes." },
+  { keys: ['what is your bench press','how much does michael bench','how much can you lift'],
+    answer: "Michael keeps the numbers to himself. The focus has always been on showing up, not on stats." },
+  { keys: ['can you beat me in a fight','would michael win a fight'],
+    answer: "Michael is focused on building people up, not knocking them down. But he trains hard." },
+  { keys: ['are you single','is michael single','does michael have a girlfriend'],
+    answer: "Michael keeps his personal life private. What he shares publicly is the work." },
+  { keys: ['how tall are you','how tall is michael',"michael's height"],
+    answer: "Tall enough to have presence in a room. Michael keeps the specifics to himself." },
+  { keys: ['what do you look like','send a pic','what does michael look like'],
+    answer: "Check out the photos on this site or follow Built By Dav on Instagram to see what Michael looks like." },
+  { keys: ['what music do you listen to',"michael's music",'music taste'],
+    answer: "Michael has not given me his playlist. If you want to know, ask him directly through the Enquire page." },
+  { keys: ['what is your favourite food',"michael's favourite food",'favourite food'],
+    answer: "Michael keeps his food choices disciplined but that does not mean there is no enjoyment. He is human." },
+  { keys: ['do you eat junk food','does michael eat junk food','cheat meals','does he cheat on his diet'],
+    answer: "Michael believes in sustainable nutrition, not restriction. Balance is part of the long game." },
+  { keys: ['what is your favourite movie',"michael's favourite movie",'favourite film'],
+    answer: "Michael has not given me a top five. If you want the real answer, reach out through the enquiry form." },
+  { keys: ['what do you do for fun','what does michael do for fun','hobbies','free time'],
+    answer: "Training, working on Built By Dav, and spending time with people that matter. Michael keeps it straightforward." },
+  { keys: ['do you play video games','does michael play games','gaming'],
+    answer: "Michael is focused on the work. Whether he games in his downtime is his business." },
+  { keys: ['what car do you drive',"michael's car"],
+    answer: "Not something Michael talks about publicly. The focus is on the work." },
+  { keys: ['are you rich','is michael rich','is he wealthy'],
+    answer: "Michael measures wealth differently to most people. He is focused on building something that actually matters." },
+  { keys: ['how much money do you make',"michael's income"],
+    answer: "Michael keeps his finances private. What he shares is the work and the results." },
+  { keys: ['will you be my friend','can we be friends','be my friend'],
+    answer: "Nova is always here for questions. If you want to connect with Michael, reach out through the Enquire page." },
+  { keys: ['can you do my homework','do my homework'],
+    answer: "That is not quite what Built By Dav does. But if the issue is focus, motivation or discipline around schoolwork, that is something Michael actually coaches on." },
+  { keys: ['will you talk to my bully for me','can michael talk to my bully'],
+    answer: "Michael will not step in directly, but he will help you build the tools to navigate it yourself. That is the more powerful outcome anyway." },
+  { keys: ['what if my bully sees this','my bully might see this'],
+    answer: "That is not a reason to stop doing the work. Built By Dav is for everyone. If someone finds it and it helps them too, that is not a bad thing." },
+  { keys: ['am i going to be okay','will i be okay','is it going to be okay'],
+    answer: "Yes. Genuinely. Michael is living proof that things that feel permanent are not. Keep going. If you need someone to talk to right now, Kids Helpline (1800 55 1800) is free and available 24/7." },
+  { keys: ['promise me it gets better','does it actually get better','will things get better'],
+    answer: "Michael does not make promises lightly, but this one he will make. It gets better. Not automatically, but through the work. And you are already doing part of that by being here." }
+];
+
+function getBotAnswer(q) {
+  if (isCrisis(q))   return CRISIS_RESPONSE;
+  if (isPersonal(q)) return PERSONAL_RESPONSE;
+  if (isSpam(q))     return "Let's keep it respectful. Got a real question? I'm here.";
+  if (isJoke(q))     return "Haha, you're funny. Got a real question for me?";
+  const lower = q.toLowerCase().trim();
+  // Exact match first (handles short inputs like "hi", "ok", "lol")
+  for (const faq of faqs) {
+    if (faq.keys.some(k => lower === k)) return faq.answer;
+  }
+  // Substring match for longer inputs
+  for (const faq of faqs) {
+    if (faq.keys.some(k => k.length > 2 && lower.includes(k))) return faq.answer;
+  }
+  // Short key match as fallback
+  for (const faq of faqs) {
+    if (faq.keys.some(k => lower.includes(k))) return faq.answer;
+  }
+  return "Good question, I'm not sure on that one. Reach out directly at builtbydav1@gmail.com or through the enquiry form and Michael will get back to you.";
+}
+
+function toggleChat() {
+  const w = document.getElementById('chat-window');
+  w.classList.toggle('open');
+  if (w.classList.contains('open')) {
+    setTimeout(() => document.getElementById('chat-input').focus(), 300);
+  }
+}
+
+
+
+function addMessage(text, type) {
+  const msgs = document.getElementById('chat-messages');
+  const el = document.createElement('div');
+  el.className = 'chat-msg ' + type;
+  el.innerHTML = text.replace(/\n/g, '<br>');
+  msgs.appendChild(el);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function askQuestion(q) {
+  document.getElementById('chat-suggestions').style.display = 'none';
+  addMessage(q, 'user');
+  setTimeout(() => addMessage(getBotAnswer(q), 'bot'), 400);
+}
+
+function sendMessage() {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text) return;
+  document.getElementById('chat-suggestions').style.display = 'none';
+  input.value = '';
+  addMessage(text, 'user');
+  setTimeout(() => addMessage(getBotAnswer(text), 'bot'), 400);
+}
+</script>
+
+<script>
+const _revEls = document.querySelectorAll('.reveal, .content, .service-section, .benefits, .form-section, .article-content');
+const _obs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('h2, h3, p, li, .benefits, button')
+        .forEach((el, i) => {
+          el.classList.add('reveal-child');
+          setTimeout(() => el.classList.add('visible'), i * 60);
+        });
+    }
+  });
+}, { threshold: 0.08 });
+_revEls.forEach(el => _obs.observe(el));
+</script>
+<script>
+function openChatFromPrompt() {
+  document.getElementById('chat-prompt').style.display = 'none';
+  document.getElementById('chat-window').classList.add('open');
+  setTimeout(() => document.getElementById('chat-input').focus(), 300);
+}
+// Auto-hide prompt when chat opens
+document.getElementById('chat-bubble').addEventListener('click', () => {
+  document.getElementById('chat-prompt').style.display = 'none';
+});
+</script>
+</body>
+</html>

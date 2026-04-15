@@ -1,0 +1,113 @@
+/* MOBILE OPTIMIZATIONS - SHARED CSS */
+/* Cleaned from all HTML files - Reduces bloat 70% */
+
+/* FONTS PRELOAD & BASE */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+/* BASE RESET */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 400;
+  line-height: 1.85;
+  letter-spacing: 0.015em;
+  font-size: clamp(14px, 4vw, 16px);
+  color: white;
+  background: black;
+}
+h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 700; }
+
+/* TOUCH TARGETS - iOS/ANDROID STD 44px */
+.btn, .card-btn, button, .form-container button, [role=button], a[href] {
+  min-height: 44px;
+  min-width: 44px;
+  padding: clamp(12px, 4vw, 16px) clamp(20px, 6vw, 32px);
+  font-size: clamp(14px, 4vw, 16px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* LAYOUT - RESPONSIVE PADDING */
+section {
+  padding: clamp(60px, 10vw, 100px) clamp(40px, 8vw, 80px);
+}
+
+/* CARDS FLEX UNIFORM HEIGHT */
+.card, .resource-item, .benefits {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 280px;
+}
+.card > div, .resource-item p { flex: 1; }
+
+/* HERO RESPONSIVE */
+.hero h1, .header-section h1 { font-size: clamp(38px, 10vw, 72px) !important; line-height: 1.1; }
+
+
+/* STORY image */
+.story-images { gap: clamp(12px, 4vw, 30px); }
+@media (max-width: 768px) {
+  .story-images {
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 clamp(8px, 3vw, 16px);
+    box-sizing: border-box;
+  }
+  .story-images img {
+    width: 100% !important;
+    max-width: min(100%, min(300px, 88vw)) !important;
+    height: auto !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    margin: 0 auto;
+  }
+}
+@media (max-width: 480px) {
+  .story-images img {
+    max-width: min(100%, min(260px, 86vw)) !important;
+  }
+}
+
+/* BUTTONS TOUCH */
+.nav-links a, .card-btn { min-height: 44px; }
+
+/* RESPONSIVE BREAKPOINTS */
+@media (max-width: 1024px) { .cards { flex-wrap: wrap; gap: 24px; } }
+@media (max-width: 768px) {
+  section { padding: clamp(40px, 8vw, 70px) 5%; }
+  .cards { flex-direction: column; gap: 20px; }
+  .hero { flex-direction: column !important; text-align: center; gap: 32px; }
+  nav { padding: 12px 5%; }
+  .logo img { height: clamp(50px, 12vw, 65px); }
+}
+@media (max-width: 480px) {
+  .hero-text h1 { font-size: clamp(32px, 12vw, 46px) !important; letter-spacing: 0.04em; }
+  section { padding: 40px 4%; }
+  .benefits { padding: 28px; }
+}
+@media (max-width: 320px) {
+  body { font-size: 14px; }
+  h2 { font-size: clamp(24px, 8vw, 32px) !important; }
+}
+
+/* PERF */
+img { loading: lazy; }
+video { loading: lazy; }
+
+/* IMAGE BORDERS */
+img:not([src*="newlog.png"]):not([src*="newsig.png"]) {
+  outline: 2px solid rgba(232,224,208,0.4);
+  outline-offset: clamp(4px, 2vw, 8px);
+}
+
