@@ -1381,6 +1381,9 @@ i.fab::before, i.fas::before, i.fa::before, i[class*="fa-"]::before {
       <input type="tel" name="phone" placeholder="Your Phone Number" required>
       <textarea name="message" placeholder="Tell me about your situation. What do you want to change?"></textarea>
       <input type="hidden" name="_subject" value="1:1 Coaching Inquiry">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="text" name="_honey" value="" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" tabindex="-1" autocomplete="off" aria-hidden="true">
       
       <button type="submit">Send Enquiry</button>
     </form>
@@ -2587,24 +2590,41 @@ if (hamburger && navLinks) {
     }
 
     const formData = new FormData(enquiryForm);
-    fetch(enquiryForm.action, {
+    const action = (enquiryForm.getAttribute('action') || 'https://formsubmit.co/builtbydav1@gmail.com').trim();
+    const ajaxUrl = action.includes('/ajax/')
+      ? action
+      : action.replace('https://formsubmit.co/', 'https://formsubmit.co/ajax/');
+
+    fetch(ajaxUrl, {
       method: 'POST',
       body: formData,
       headers: {
         'Accept': 'application/json'
       }
     })
-      .then(response => {
-        if (!response.ok) throw new Error('Submission failed');
+      .then(async (response) => {
+        let data = null;
+        try {
+          data = await response.json();
+        } catch (e) {
+          data = null;
+        }
+        if (!response.ok) {
+          throw new Error((data && (data.message || data.error)) || 'Submission failed');
+        }
+        if (data && (data.success === false || String(data.success) === 'false' || data.error)) {
+          throw new Error((data && (data.message || data.error)) || 'Submission failed');
+        }
         enquiryForm.style.display = 'none';
         if (thankyouSection) thankyouSection.style.display = 'block';
       })
-      .catch(() => {
+      .catch((err) => {
         if (submitButton) {
           submitButton.disabled = false;
           submitButton.textContent = 'Send Enquiry';
         }
-        alert('Sorry, something went wrong. Please try again or email builtbydav1@gmail.com directly.');
+        const detail = err && err.message ? err.message : '';
+        alert('Sorry, something went wrong' + (detail ? ': ' + detail : '') + '. Please try again or email builtbydav1@gmail.com directly.');
       });
 
     return false;
